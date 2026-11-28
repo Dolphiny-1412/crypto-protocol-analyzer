@@ -7,6 +7,12 @@
 
 ---
 
+[![CI](https://github.com/Dolphiny-1412/crypto-protocol-analyzer/actions/workflows/ci.yml/badge.svg)](https://github.com/Dolphiny-1412/crypto-protocol-analyzer/actions/workflows/ci.yml)
+
+![The analyzer dashboard on a sample capture](docs/screenshot.png)
+
+*Real screenshot: the analyzer on a sample capture. The traffic in that capture is synthetic and was created for the screenshot.*
+
 ## 📌 Objective
 
 Analyze packet capture (`.pcap` / `.pcapng`) files to identify insecure or deprecated network protocols, weak TLS/SSL versions, and plaintext credential exposure — producing a structured, severity-rated security report.
@@ -40,6 +46,7 @@ crypto_protocol_analyzer/
 ├── rules.py             ← Insecure protocol rule definitions
 ├── report_generator.py  ← DataFrame, CSV, and summary logic
 ├── requirements.txt     ← Python dependencies
+├── tests/               ← pytest tests (rules, analyzer, report)
 ├── README.md            ← This file
 ├── sample_data/
 │   └── demo_findings.json   ← Built-in demo dataset
@@ -161,6 +168,15 @@ python cli.py --demo --no-save
 | Low | Syslog | 10.0.0.88 | 198.51.100.80 | 514 | Unencrypted Syslog (UDP 514) detected |
 
 ---
+
+## ✅ Tests
+
+```bash
+pip install -r requirements.txt pytest
+pytest -q
+```
+
+19 tests cover the rule table, the port, payload and TLS-version checks, the demo data, the report summary and CSV export, and an end-to-end run on a pcap generated with Scapy. CI runs them on every push.
 
 ## ⚠️ Limitations
 
